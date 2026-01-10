@@ -1,10 +1,10 @@
-name: Java CI with Gradle
+name: Java CI
 
 on:
   push:
-    branches: [ main, master, testng, junit4 ]
+    branches: [ main, testng, junit4 ]
   pull_request:
-    branches: [ main, master ]
+    branches: [ main ]
 
 jobs:
   build:
@@ -19,11 +19,8 @@ jobs:
         java-version: '11'
         distribution: 'temurin'
     
-    - name: Setup Gradle
-      uses: gradle/gradle-build-action@v2
+    - name: Grant execute permission for gradlew
+      run: chmod +x gradlew
     
-    - name: Build with Gradle
-      run: gradle build
-      
-    - name: Test with Gradle
-      run: gradle test
+    - name: Build with Gradle Wrapper
+      run: ./gradlew build
