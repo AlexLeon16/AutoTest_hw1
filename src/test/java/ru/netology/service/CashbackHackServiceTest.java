@@ -21,7 +21,6 @@ class CashbackHackServiceTest {
     void shouldReturn1000IfAmount1000() {
         // ВНИМАНИЕ: Это демонстрация бага в сервисе!
         // По логике должно возвращаться 0, но сервис возвращает 1000
-        // Подробности бага: https://github.com/ваш-username/ваш-репозиторий/issues/1
         CashbackHackService service = new CashbackHackService();
         int amount = 1000;
         int actual = service.remain(amount);
