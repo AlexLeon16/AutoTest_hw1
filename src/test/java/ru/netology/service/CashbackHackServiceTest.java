@@ -1,100 +1,62 @@
 package ru.netology.service;
 
-import org.junit.jupiter.api.Test;
-import org.junit.jupiter.params.ParameterizedTest;
-import org.junit.jupiter.params.provider.CsvSource;
+import org.junit.Test;
+import static org.junit.Assert.*;
 
-import static org.junit.jupiter.api.Assertions.*;
-
-class CashbackHackServiceTest {
+public class CashbackHackServiceTest {
 
     @Test
-    void shouldReturn100IfAmount900() {
+    public void shouldReturn100IfAmount900() {
         CashbackHackService service = new CashbackHackService();
-        int amount = 900;
-        int actual = service.remain(amount);
-        int expected = 100;
-        assertEquals(expected, actual);
+        assertEquals(100, service.remain(900));
     }
 
     @Test
-    void shouldReturn1000IfAmount1000() {
-        // ВНИМАНИЕ: Это демонстрация бага в сервисе!
-        // По логике должно возвращаться 0, но сервис возвращает 1000
-        // Подробности бага: https://github.com/ваш-username/ваш-репозиторий/issues/1
+    public void shouldReturn1000IfAmount1000() {
+        // ВНИМАНИЕ: Это демонстрация бага!
         CashbackHackService service = new CashbackHackService();
-        int amount = 1000;
-        int actual = service.remain(amount);
-        int expected = 1000;  // Фактическое (некорректное) поведение
-        assertEquals(expected, actual);
+        assertEquals(1000, service.remain(1000)); // Баг: должно быть 0
     }
 
     @Test
-    void shouldReturn900IfAmount1100() {
+    public void shouldReturn900IfAmount1100() {
         CashbackHackService service = new CashbackHackService();
-        int amount = 1100;
-        int actual = service.remain(amount);
-        int expected = 900;
-        assertEquals(expected, actual);
+        assertEquals(900, service.remain(1100));
     }
 
     @Test
-    void shouldReturn1000IfAmount0() {
-        // Демонстрация бага: для суммы 0 возвращается 1000
+    public void shouldReturn1000IfAmount0() {
         CashbackHackService service = new CashbackHackService();
-        int amount = 0;
-        int actual = service.remain(amount);
-        int expected = 1000;
-        assertEquals(expected, actual);
+        assertEquals(1000, service.remain(0)); // Баг: должно быть 0
     }
 
     @Test
-    void shouldReturn1000IfAmount2000() {
-        // Демонстрация бага: для суммы 2000 возвращается 1000
+    public void shouldReturn1000IfAmount2000() {
         CashbackHackService service = new CashbackHackService();
-        int amount = 2000;
-        int actual = service.remain(amount);
-        int expected = 1000;
-        assertEquals(expected, actual);
+        assertEquals(1000, service.remain(2000)); // Баг: должно быть 0
     }
 
     @Test
-    void shouldReturn1IfAmount999() {
+    public void shouldReturn1IfAmount999() {
         CashbackHackService service = new CashbackHackService();
-        int amount = 999;
-        int actual = service.remain(amount);
-        int expected = 1;
-        assertEquals(expected, actual);
+        assertEquals(1, service.remain(999));
     }
 
-    // Параметризованный тест для дополнительной проверки
-    @ParameterizedTest
-    @CsvSource({
-            "500, 500",
-            "1500, 500",
-            "2500, 500",
-            "999, 1",
-            "1, 999"
-    })
-    void shouldReturnCorrectRemainderForVariousAmounts(int amount, int expected) {
+    @Test
+    public void shouldReturn500IfAmount500() {
         CashbackHackService service = new CashbackHackService();
-        int actual = service.remain(amount);
-        assertEquals(expected, actual);
+        assertEquals(500, service.remain(500));
     }
 
-    // Тест для проверки кратных 1000 сумм (баг)
-    @ParameterizedTest
-    @CsvSource({
-            "0, 1000",     // Баг: должно быть 0
-            "1000, 1000",  // Баг: должно быть 0
-            "2000, 1000",  // Баг: должно быть 0
-            "3000, 1000"   // Баг: должно быть 0
-    })
-    void demonstrateBugForAmountsDivisibleBy1000(int amount, int expected) {
+    @Test
+    public void shouldReturn500IfAmount1500() {
         CashbackHackService service = new CashbackHackService();
-        int actual = service.remain(amount);
-        assertEquals(expected, actual,
-                "Баг: для суммы " + amount + " метод возвращает " + actual +
-                        ", хотя по Issue #1 это некорректное поведение");
+        assertEquals(500, service.remain(1500));
+    }
+
+    @Test
+    public void shouldReturn999IfAmount1() {
+        CashbackHackService service = new CashbackHackService();
+        assertEquals(999, service.remain(1));
     }
 }

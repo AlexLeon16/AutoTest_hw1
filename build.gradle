@@ -2,25 +2,19 @@ plugins {
     id 'java'
 }
 
-// Указываем версию Gradle для совместимости
-wrapper {
-    gradleVersion = '7.6'
-}
-
 group = 'ru.netology'
 version = '1.0-SNAPSHOT'
 
 sourceCompatibility = 11
-targetCompatibility = 11
 
 repositories {
     mavenCentral()
 }
 
 dependencies {
-    testImplementation 'org.junit.jupiter:junit-jupiter:5.7.0'
+    testImplementation 'junit:junit:4.13'
 }
 
 test {
-    useJUnitPlatform()
+    useJUnit()
 }
