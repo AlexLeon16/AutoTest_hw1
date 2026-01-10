@@ -1,10 +1,10 @@
-name: Java CI
+name: Java CI with Gradle
 
 on:
   push:
-    branches: [ main, testng, junit4 ]
+    branches: [ main, master, testng, junit4 ]
   pull_request:
-    branches: [ main ]
+    branches: [ main, master ]
 
 jobs:
   build:
@@ -19,8 +19,14 @@ jobs:
         java-version: '11'
         distribution: 'temurin'
     
-    - name: Grant execute permission for gradlew
-      run: chmod +x gradlew
+    - name: Install Gradle 7.6
+      run: |
+        wget -q https://services.gradle.org/distributions/gradle-7.6-bin.zip
+        unzip -q gradle-7.6-bin.zip
+        echo "$PWD/gradle-7.6/bin" >> $GITHUB_PATH
     
-    - name: Build with Gradle Wrapper
-      run: ./gradlew build
+    - name: Build with Gradle
+      run: gradle build
+      
+    - name: Test with Gradle
+      run: gradle test
