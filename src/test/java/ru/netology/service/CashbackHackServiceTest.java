@@ -15,7 +15,7 @@ public class CashbackHackServiceTest {
     public void shouldReturn1000IfAmount1000() {
         // ВНИМАНИЕ: Это демонстрация бага!
         CashbackHackService service = new CashbackHackService();
-        assertEquals(1000, service.remain(1000)); // Баг: должно быть 0
+        assertEquals(0, service.remain(1000)); // Баг: должно быть 0
     }
 
     @Test
