@@ -2,6 +2,10 @@ plugins {
     id 'java'
 }
 
+wrapper {
+    gradleVersion = '7.6'
+}
+
 group = 'ru.netology'
 version = '1.0-SNAPSHOT'
 
